@@ -10,7 +10,7 @@ import Foundation
 
 
 //MARK: Constant String
-struct KString {
+public struct KString {
     static let strAppHeader              = "Attachment !!"
     static let ok                        = "OK"
     static let cancel                    = "Cancel"

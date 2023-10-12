@@ -11,7 +11,7 @@ import AVFoundation
 import Photos
 
 
-class AttachmentHandler: NSObject {
+public class AttachmentHandler: NSObject {
     
     fileprivate var currentVC: UIViewController?
     
@@ -54,7 +54,7 @@ class AttachmentHandler: NSObject {
     
     //MARK: - showAttachmentActionSheet
     
-    func showAttachmentActionSheet(vc: UIViewController) {
+   public func showAttachmentActionSheet(vc: UIViewController) {
             currentVC = vc
             let actionSheet = UIAlertController(title: Constants.actionFileTypeHeading, message: Constants.actionFileTypeDescription, preferredStyle: .actionSheet)
             
@@ -152,7 +152,7 @@ class AttachmentHandler: NSObject {
     
     
     //MARK: - CAMERA PICKER
-    func openCamera(){
+   public func openCamera(){
             if UIImagePickerController.isSourceTypeAvailable(.camera){
                 let myPickerController = UIImagePickerController()
                 myPickerController.delegate = self
@@ -162,7 +162,7 @@ class AttachmentHandler: NSObject {
         }
 
     //MARK: - PHOTO PICKER
-    func photoLibrary(){
+   public func photoLibrary(){
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             let myPickerController = UIImagePickerController()
             myPickerController.delegate = self
@@ -172,7 +172,7 @@ class AttachmentHandler: NSObject {
     }
     
     //MARK: - VIDEO PICKER
-    func videoLibrary(){
+   public func videoLibrary(){
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
                 let myPickerController = UIImagePickerController()
                 myPickerController.delegate = self
@@ -215,11 +215,11 @@ class AttachmentHandler: NSObject {
 
 //MARK: - IMAGE PICKER DELEGATE
 extension AttachmentHandler: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         currentVC?.dismiss(animated: true, completion: nil)
     }
     
-   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
         guard info[UIImagePickerController.InfoKey.mediaType] != nil else { return }
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! CFString
@@ -309,7 +309,7 @@ extension AttachmentHandler: UIImagePickerControllerDelegate, UINavigationContro
 
     //MARK: Video Compressing technique
     
-    fileprivate func compressWithSessionStatusFunc(_ videoUrl: NSURL) {
+    public func compressWithSessionStatusFunc(_ videoUrl: NSURL) {
         let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".MOV")
         compressVideo(inputURL: videoUrl as URL, outputURL: compressedURL) { (exportSession) in
             guard let session = exportSession else {
@@ -344,7 +344,7 @@ extension AttachmentHandler: UIImagePickerControllerDelegate, UINavigationContro
     }
     
     // Now compression is happening with medium quality, we can change when ever it is needed
-    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
+    public func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
         let urlAsset = AVURLAsset(url: inputURL, options: nil)
         guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPreset1280x720) else {
             handler(nil)
@@ -367,7 +367,7 @@ extension AttachmentHandler: UIDocumentPickerDelegate{
     
     //MARK: - FILE PICKER
     //Handle the access files which we want to use for documents.
-    func documentPicker(){
+    public func documentPicker(){
         let importMenu = UIDocumentPickerViewController(documentTypes: ["public.image","public.text", "public.composite-content", "com.pkware.zip-archive"], in: .import)
         
 //        let importMenu = UIDocumentPickerViewController(documentTypes: ["com.apple.iwork.pages.pages", "com.apple.iwork.numbers.numbers", "com.apple.iwork.keynote.key","public.image", "com.apple.application", "public.item","public.data", "public.content", "public.audiovisual-content", "public.movie", "public.audiovisual-content", "public.video", "public.audio", "public.text", "public.data", "public.zip-archive", "com.pkware.zip-archive", "public.composite-content", "public.text"], in: .import)
@@ -380,13 +380,13 @@ extension AttachmentHandler: UIDocumentPickerDelegate{
     
     
     
-    func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
+    public func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
         documentPicker.delegate = self
         currentVC?.present(documentPicker, animated: true, completion: nil)
     }
     
     
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         print("url", url)
         
         self.filePickedBlock?(url)
@@ -395,7 +395,7 @@ extension AttachmentHandler: UIDocumentPickerDelegate{
     }
     
     //    Method to handle cancel action.
-    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+    public func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
 //        self.currentVC?.dismiss(animated: true, completion: nil)
         
     }
@@ -417,7 +417,7 @@ extension AttachmentHandler: UIDocumentPickerDelegate{
 
 extension UIImage {
     
-    func imageByNormalizingOrientation() -> UIImage {
+    public func imageByNormalizingOrientation() -> UIImage {
         if imageOrientation == .up {
             return self
         }
@@ -428,7 +428,7 @@ extension UIImage {
         return normalizedImage!
     }
     // MARK: - UIImage+Resize
-    func compressTo(_ expectedSizeInMb:Double) -> Data? {
+    public func compressTo(_ expectedSizeInMb:Double) -> Data? {
         
         if imageOrientation == .up {
             
@@ -471,7 +471,7 @@ extension UIImage {
 }
 
 
-func alertMessase(strOk: String? = KString.ok, withTitle : String? = KString.strAppHeader, message : String?, cancelAction : (()->())? = nil , okAction : @escaping (()->())) {
+ func alertMessase(strOk: String? = KString.ok, withTitle : String? = KString.strAppHeader, message : String?, cancelAction : (()->())? = nil , okAction : @escaping (()->())) {
     
     let alertMessageController = UIAlertController(title: withTitle, message: message, preferredStyle: .alert)
     let cancelButton = UIAlertAction(title:KString.cancel, style: .cancel) { (cancel) in
