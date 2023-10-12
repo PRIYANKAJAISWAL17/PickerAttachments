@@ -15,11 +15,11 @@ public class AttachmentHandler: NSObject {
     
     fileprivate var currentVC: UIViewController?
     
-    public let shared = AttachmentHandler()
+    public var shared = AttachmentHandler()
     //MARK: - Internal Properties
-    var imagePickedBlock: ((UIImage, String, String) -> Void)?
-    var videoPickedBlock: ((NSURL) -> Void)?
-    var filePickedBlock: ((URL) -> Void)?
+    public var imagePickedBlock: ((UIImage, String, String) -> Void)?
+    public var videoPickedBlock: ((NSURL) -> Void)?
+    public var filePickedBlock: ((URL) -> Void)?
     
     enum AttachmentType: String{
         case camera, video, photoLibrary
