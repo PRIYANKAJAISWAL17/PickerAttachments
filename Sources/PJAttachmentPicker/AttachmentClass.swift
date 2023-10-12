@@ -15,7 +15,7 @@ public class AttachmentHandler: NSObject {
     
     fileprivate var currentVC: UIViewController?
     
-    static let shared = AttachmentHandler()
+    public let shared = AttachmentHandler()
     //MARK: - Internal Properties
     var imagePickedBlock: ((UIImage, String, String) -> Void)?
     var videoPickedBlock: ((NSURL) -> Void)?
