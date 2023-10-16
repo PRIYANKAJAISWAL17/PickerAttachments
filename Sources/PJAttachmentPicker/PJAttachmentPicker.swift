@@ -12,8 +12,9 @@ import Photos
 
 public class PJAttachmentPickerHandler: NSObject {
     
+    
     fileprivate var currentVC: UIViewController?
-    public var shared = PJAttachmentPickerHandler()
+    public static let shared = PJAttachmentPickerHandler()
     
     //MARK: - Internal Properties
     public var imagePickedBlock: ((UIImage, String, String) -> Void)?
