@@ -12,10 +12,9 @@ import Photos
 
 public class PJAttachmentPickerHandler: NSObject {
     
-    
     fileprivate var currentVC: UIViewController?
-    public static let shared = PJAttachmentPickerHandler()
     
+    public static let shared = PJAttachmentPickerHandler()
     //MARK: - Internal Properties
     public var imagePickedBlock: ((UIImage, String, String) -> Void)?
     public var videoPickedBlock: ((NSURL) -> Void)?
@@ -67,10 +66,10 @@ public class PJAttachmentPickerHandler: NSObject {
                 self.authorisationStatus(attachmentTypeEnum: .photoLibrary, vc: self.currentVC!)
             }))
             
-//            actionSheet.addAction(UIAlertAction(title: Constants.video, style: .default, handler: { (action) -> Void in
-//                self.authorisationStatus(attachmentTypeEnum: .video, vc: self.currentVC!)
-//
-//            }))
+            actionSheet.addAction(UIAlertAction(title: Constants.video, style: .default, handler: { (action) -> Void in
+                self.authorisationStatus(attachmentTypeEnum: .video, vc: self.currentVC!)
+
+            }))
             
             actionSheet.addAction(UIAlertAction(title: Constants.file, style: .default, handler: { (action) -> Void in
                 self.documentPicker()
