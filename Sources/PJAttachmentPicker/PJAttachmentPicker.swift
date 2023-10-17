@@ -396,8 +396,9 @@ extension PJAttachmentPickerHandler: UIImagePickerControllerDelegate, UINavigati
 
 
 //MARK: - FILE IMPORT DELEGATE
+
 extension PJAttachmentPickerHandler: UIDocumentPickerDelegate{
-    
+    ///create another extension with two delegates (UIDocumentMenuDelegate, UIDocumentPickerDelegate) with methods didPickDocumentPicker, didPickDocumentAt and documentPickerWasCancelled. Use the picked file with filePickedBlock closure.
     public func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
         documentPicker.delegate = self
         currentVC?.present(documentPicker, animated: true, completion: nil)
